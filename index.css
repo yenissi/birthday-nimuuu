@@ -1,0 +1,225 @@
+body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #334663;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background image */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("assets/bg-blue.png") center / cover no-repeat;
+      z-index: -2;
+    }
+
+    /* opacity controller */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(219, 234, 254, 0.7); /* ← CHANGE THIS */
+      z-index: -1;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border-style: solid;
+      border-color: #334663;
+      padding: 32px 24px 40px;
+      width: 400px;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: #334663;
+    }
+
+    .card-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    }
+
+    .top-gif {
+    position: absolute;
+    top: -56px;       /* controls how much it overlaps */
+    width: 140px;     /* size of the gif */
+    z-index: 2;
+    }
+
+    .card {
+    margin-top: 40px; /* creates space so gif doesn’t cover text */
+    }
+
+    .button-group {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* space between buttons */
+    }
+
+    .button-group button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .read-btn {
+    background: #a5b4fc; /* pastel blue */
+    color: #2b4daa;      /* dark blue text */
+    }
+
+    .read-btn:hover {
+    background: #818cf8; /* slightly darker blue on hover */
+    transform: translateY(-2px);
+    }
+
+    .not-read-btn {
+    background: #d8b4fe; /* pastel purple */
+    color: #5b21b6;      /* dark purple text */
+    }
+
+    .not-read-btn:hover {
+    background: #c084fc; /* slightly darker purple on hover */
+    transform: translateY(-2px);
+    }
+
+    /* ===== Mini-card grid (2x2) ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.mini-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.mini-card:hover {
+  transform: translateY(-3px);
+  background: #a5b4fc; /* pastel blue highlight */
+  color: #fff;
+}
+
+/* ===== Images inside mini-cards ===== */
+.mini-card img {
+  width: 100%;
+  height: 100px;        /* adjust as needed */
+  object-fit: contain;   /* keeps aspect ratio */
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* ===== Responsive for small screens ===== */
+@media (max-width: 500px) {
+  .mini-card img {
+    height: 80px;
+  }
+  .card {
+    width: 90%;
+    padding: 24px 16px 32px;
+  }
+  .top-gif {
+    width: 120px;
+    top: -48px;
+  }
+}
+
+.scroll-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 12px;
+  margin-top: 16px;
+  max-height: 300px;  /* fixed height for scrolling */
+  overflow-y: auto;    /* vertical scroll */
+  padding-right: 4px;  /* optional, avoids scrollbar overlap */
+}
+
+.scroll-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-grid::-webkit-scrollbar-thumb {
+  background-color: rgba(51, 70, 99, 0.5);
+  border-radius: 3px;
+}
+
+.grid-card img {
+  width: 100%;
+  height: 130px;   /* adjust for larger images */
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Modal Content (the image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 16px;
+}
+
+/* Caption text */
+#caption {
+  text-align: center;
+  color: #fff;
+  padding: 10px 0;
+  font-size: 1.2rem;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #ccc;
+}

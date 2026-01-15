@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday, Nimuuu!! 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* Mini-Card 4 fade-in animation */
+    .fade-line {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.6s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scrollable message box */
+    .message-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    .message-box::-webkit-scrollbar-thumb {
+      background-color: rgba(51, 70, 99, 0.5);
+      border-radius: 3px;
+    }
+    .message-box::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      top: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.9;
+      border-radius: 50%;
+      animation: confetti-fall linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background music -->
+  <audio id="bg-music" src="assets/bubblegum.mp3" loop></audio>
+
+  <div class="card-wrapper" onclick="startMusic()">
+    <img 
+      src="https://i.pinimg.com/originals/80/7b/5c/807b5c4b02e765bb4930b7c66662ef4b.gif" 
+      alt="cute gif" 
+      class="top-gif"
+    />
+
+    <div class="card" id="card-content">
+      <h1>You've got a message!! 💌</h1>
+      <div class="button-group">
+        <button class="read-btn" onclick="showPage('read')">Read</button>
+        <button class="not-read-btn" onclick="showPage('not-read')">Do Not Read</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for larger images -->
+  <div id="img-modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modal-img" />
+    <div id="caption"></div>
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById('bg-music');
+    let musicStarted = false;
+
+    function startMusic() {
+      if (!musicStarted) {
+        bgMusic.play().catch(() => console.log('User interaction required to play music'));
+        musicStarted = true;
+      }
+    }
+
+    const CAKE_PASSWORD = "01162005"; // birthdate in MMDDYYYY
+
+    function showPage(page) {
+      startMusic();
+      const card = document.getElementById('card-content');
+
+      if (page === 'cake-unlocked') {
+        card.innerHTML = `
+          <h1>Wuhuu! Make a wish! 🎂</h1>
+          <div style="width:80%; margin:16px auto;">
+            <img src="https://i.pinimg.com/originals/06/bc/05/06bc055626b9bf778048e5360e88c379.gif" alt="Cake with candle" style="width:100%; border-radius:16px;" />
+          </div>
+          <p style="margin-top:12px; color:#6700bc;">Enjoy your cake! 💜</p>
+          <div class="button-group" style="margin-top:24px;">
+            <button class="read-btn" onclick="showPage('read')">Back</button>
+          </div>
+        `;
+
+        spawnConfetti(80); // generate 80 confetti pieces
+        return;
+      }
+
+      if (page === 'read') {
+        card.innerHTML = `
+          <h1>Yay!!! Now choose!! 😜</h1>
+          <div class="card-grid">
+              <div class="mini-card" onclick="showPage('mini1')">
+                  <img src="assets/pic.png" alt="Surprise 1" />
+              </div>
+              <div class="mini-card" onclick="showPage('mini2')">
+                  <img src="assets/cake.png" alt="Surprise 2" />
+              </div>
+              <div class="mini-card" onclick="showPage('mini3')">
+                  <img src="assets/hart.png" alt="Surprise 3" />
+              </div>
+              <div class="mini-card" onclick="showPage('mini4')">
+                  <img src="assets/msg.png" alt="Surprise 4" />
+              </div>
+          </div>
+        `;
+      } 
+      else if (page === 'not-read') {
+        card.innerHTML = `
+          <h2>NOUU, WHYYY NOT READ?? 🥹</h2>
+          <div class="button-group">
+              <button class="read-btn" onclick="showPage('read')">Read</button>
+          </div>
+        `;
+      } 
+      else if (page === 'mini1') {
+        card.innerHTML = `
+          <h1>Our memories together! 💙</h1>
+          <div class="scroll-grid">
+            <div class="grid-card"><img src="assets/1.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/2.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/3.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/4.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/5.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/6.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/7.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/8.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/9.png" onclick="openModal(this)" /></div>
+            <div class="grid-card"><img src="assets/10.png" onclick="openModal(this)" /></div>
+          </div>
+          <div class="button-group" style="margin-top:24px;">
+            <button class="read-btn" onclick="showPage('read')">Back</button>
+          </div>
+        `;
+      } 
+      else if (page === 'mini2') {
+        card.innerHTML = `
+          <h1>🔒 Secret Surprise</h1>
+          <p style="margin-top:12px;">Enter your birthdate to unlock! 🎂</p>
+
+          <input 
+            type="password" 
+            id="cake-password"
+            placeholder="Enter birthdate (MMDDYYYY)"
+            style="
+              margin-top:16px;
+              padding:12px;
+              border-radius:12px;
+              border:1px solid #a5b4fc;
+              width:80%;
+              font-size:1rem;
+            "
+          />
+
+          <p id="error-msg" style="color:#ef4444; margin-top:8px; display:none;">
+            Wrong 🥹 You don't know your birthdate? 😲
+          </p>
+
+          <div class="button-group" style="margin-top:20px;">
+            <button class="read-btn" onclick="checkCakePassword()">Unlock</button>
+            <button class="not-read-btn" onclick="showPage('read')">Back</button>
+          </div>
+        `;
+      } 
+      else if (page === 'mini3') {
+        card.innerHTML = `
+          <h1>Lots of Love for You! ❤️</h1>
+          <p style="margin-top:12px; color:#ef4444;">Click anywhere to see the magic! ✨</p>
+          <div class="heart-container" style="position:relative; height:200px;"></div>
+          <div class="button-group" style="margin-top:24px;">
+            <button class="read-btn" onclick="showPage('read')">Back</button>
+          </div>
+        `;
+
+        const container = card.querySelector('.heart-container');
+        
+        // Click to spawn hearts
+        container.onclick = () => spawnHearts(7, container);
+      }
+
+      else if (page === 'mini4') {
+        const lines = [
+          "Dear Nimuuu,",
+          "Happy birthday, my love!! 🥳 I hope your day will be filled with so much joy and love because you deserve it. You are such an amazing person, and I hope you get to achieve all your dreams! 💙",
+          "Happy Birthday once again, my Nimuuu!! Ma timilai maya garxu, mero maya! 🥰 ",
+          "— With lots of love from Geluuu/Gelatooo💖"
+        ];
+
+        card.innerHTML = `<h1>A Special Message for You 💌</h1>
+                          <div class="message-box" style="
+                              max-height: 300px;
+                              overflow-y: auto;
+                              margin-top: 16px;
+                              padding: 16px;
+                              background: rgba(255,255,255,0.6);
+                              border-radius: 16px;
+                              border: 1px solid #a5b4fc;
+                              color: #334663;
+                              text-align: left;
+                              font-size: 1rem;
+                              line-height: 1.5rem;
+                            ">
+                          </div>
+                          <div class="button-group" style="margin-top:24px;">
+                            <button class="read-btn" onclick="showPage('read')">Back</button>
+                          </div>`;
+
+        const msgBox = card.querySelector('.message-box');
+        lines.forEach((line, index) => {
+          const p = document.createElement('p');
+          p.textContent = line;
+          p.className = "fade-line";
+          p.style.animationDelay = `${index * 0.4}s`;
+          msgBox.appendChild(p);
+        });
+      }
+    }
+
+    function checkCakePassword() {
+      const input = document.getElementById('cake-password').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      if (input === CAKE_PASSWORD) {
+        showPage('cake-unlocked');
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    function spawnConfetti(amount) {
+      for (let i = 0; i < amount; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+        confetti.style.width = confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.animationDuration = 2 + Math.random() * 2 + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 4000); // remove after animation
+      }
+    }
+
+    function openModal(img) {
+      const modal = document.getElementById('img-modal');
+      const modalImg = document.getElementById('modal-img');
+      const caption = document.getElementById('caption');
+
+      modal.style.display = "block";
+      modalImg.src = img.src;
+      caption.innerHTML = img.alt;
+    }
+
+    function closeModal() {
+      document.getElementById('img-modal').style.display = "none";
+    }
+
+    function spawnHearts(amount, container) {
+      for (let i = 0; i < amount; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.left = Math.random() * 90 + '%';
+        heart.style.fontSize = Math.random() * 24 + 16 + 'px';
+        heart.style.opacity = 0.8;
+        heart.style.transition = `all ${2 + Math.random()}s ease-out`;
+        container.appendChild(heart);
+
+        // Animate heart upwards
+        setTimeout(() => {
+          heart.style.transform = `translateY(-${150 + Math.random() * 100}px) scale(1.5)`;
+          heart.style.opacity = 0;
+        }, 50);
+
+        // Remove heart after animation
+        setTimeout(() => heart.remove(), 2500);
+      }
+    }
+
+  </script>
+</body>
+</html>
